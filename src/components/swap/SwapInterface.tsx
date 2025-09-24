@@ -6,10 +6,24 @@ import { Processing } from "./Processing";
 import { Complete } from "./Complete";
 import { TabNavigation } from "./TabNavigation";
 
+import { Token } from "@/types/swap";
+
+import { SwapExecutionProgress } from "@/services/swapExecution";
+
 interface SwapInterfaceProps {
   currentStep: number;
   fromAmount: string;
   toAmount: string;
+  fromToken: Token | null;
+  toToken: Token | null;
+  exchangeRate: string | null;
+  isLoadingPrice?: boolean;
+  priceError?: string | null;
+  isConnected?: boolean;
+  fromTokenBalance?: { formatted: string; symbol: string } | null;
+  toTokenBalance?: { formatted: string; symbol: string } | null;
+  isExecuting?: boolean;
+  executionProgress?: SwapExecutionProgress | null;
   activeTab: string;
   onFromAmountChange: (amount: string) => void;
   onTabChange: (tab: string) => void;
@@ -22,6 +36,16 @@ export const SwapInterface = ({
   currentStep,
   fromAmount,
   toAmount,
+  fromToken,
+  toToken,
+  exchangeRate,
+  isLoadingPrice,
+  priceError,
+  isConnected,
+  fromTokenBalance,
+  toTokenBalance,
+  isExecuting,
+  executionProgress,
   activeTab,
   onFromAmountChange,
   onTabChange,
@@ -38,6 +62,14 @@ export const SwapInterface = ({
             <TokenSelection
               fromAmount={fromAmount}
               toAmount={toAmount}
+              fromToken={fromToken}
+              toToken={toToken}
+              exchangeRate={exchangeRate}
+              isLoadingPrice={isLoadingPrice}
+              priceError={priceError}
+              isConnected={isConnected}
+              fromTokenBalance={fromTokenBalance}
+              toTokenBalance={toTokenBalance}
               onFromAmountChange={onFromAmountChange}
               onSwap={onSwap}
               onNextStep={onNextStep}
@@ -54,7 +86,7 @@ export const SwapInterface = ({
           />
         );
       case 3:
-        return <Processing />;
+        return <Processing progress={executionProgress} isExecuting={isExecuting} />;
       case 4:
         return (
           <Complete
@@ -70,6 +102,14 @@ export const SwapInterface = ({
             <TokenSelection
               fromAmount={fromAmount}
               toAmount={toAmount}
+              fromToken={fromToken}
+              toToken={toToken}
+              exchangeRate={exchangeRate}
+              isLoadingPrice={isLoadingPrice}
+              priceError={priceError}
+              isConnected={isConnected}
+              fromTokenBalance={fromTokenBalance}
+              toTokenBalance={toTokenBalance}
               onFromAmountChange={onFromAmountChange}
               onSwap={onSwap}
               onNextStep={onNextStep}
