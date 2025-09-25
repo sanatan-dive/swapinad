@@ -102,12 +102,19 @@ export const SwapInterface = ({
           <ReviewConfirm
             fromAmount={fromAmount}
             toAmount={toAmount}
+            fromToken={fromToken}
+            toToken={toToken}
             estimatedGas={
               estimatedGas && estimatedGas > 0
                 ? formatGasFee(estimatedGas)
                 : "$2.50"
             }
-            exchangeRate={exchangeRate || "1 BNB = 35.573989 USDT"}
+            exchangeRate={
+              exchangeRate ||
+              (fromToken?.symbol && toToken?.symbol
+                ? `1 ${fromToken.symbol} = ? ${toToken.symbol}`
+                : "")
+            }
             onBack={() => onBackToStep(1)}
             onNextStep={onNextStep}
           />

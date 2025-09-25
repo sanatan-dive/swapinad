@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from "react";
+import { usePoolReserves } from "@/hooks/useSimpleSwapPool";
+import { Token } from "@/types/swap";
 
 interface ReviewConfirmProps {
   fromAmount: string;
   toAmount: string;
   estimatedGas?: string;
   exchangeRate?: string;
+  fromToken?: Token | null;
+  toToken?: Token | null;
   onBack: () => void;
   onNextStep: () => void;
 }
@@ -14,6 +18,8 @@ export const ReviewConfirm = ({
   toAmount,
   estimatedGas = "$2.50",
   exchangeRate = "1 BNB = 35.573989 USDT",
+  fromToken,
+  toToken,
   onBack,
   onNextStep,
 }: ReviewConfirmProps) => {
@@ -23,6 +29,10 @@ export const ReviewConfirm = ({
   const [luckyPercentage, setLuckyPercentage] = useState(0);
   const wheelRef = useRef<HTMLDivElement>(null);
   const [rotation, setRotation] = useState(0);
+  const [gmonFee, setGmonFee] = useState<string>("");
+
+  // Read pool reserves to estimate GMON fee equivalent
+  const reserves = usePoolReserves();
 
   // Roulette options with dramatic descriptions
   const rouletteOptions = [
@@ -95,7 +105,26 @@ export const ReviewConfirm = ({
       setHasSpun(true);
       setFinalGasFee(rouletteOptions[targetIndex].fee);
       // Generate a consistent lucky percentage for this spin
-      setLuckyPercentage(Math.floor(Math.random() * 30 + 10));
+      const lucky = Math.floor(Math.random() * 30 + 10);
+      setLuckyPercentage(lucky);
+
+      // Estimate GMON-denominated fee taken from pool as a % of fromAmount in native
+      try {
+        const fromAmt = parseFloat(fromAmount.replace(/,/g, "")) || 0;
+        const feeNative = (fromAmt * lucky) / 100; // % of input as "gas fee"
+        const r = reserves.data as readonly [bigint, bigint] | undefined;
+        if (r && r[0] > 0n && r[1] > 0n && feeNative > 0) {
+          const reserveETH = Number(r[0]);
+          const reserveGMON = Number(r[1]);
+          const priceGMONPerETH = reserveGMON / reserveETH;
+          const feeGmon = feeNative * priceGMONPerETH;
+          setGmonFee(`${feeGmon.toFixed(6)} GMON`);
+        } else {
+          setGmonFee("");
+        }
+      } catch {
+        setGmonFee("");
+      }
     }, 4000);
   };
 
@@ -112,21 +141,16 @@ export const ReviewConfirm = ({
     setFinalGasFee(estimatedGas);
     setLuckyPercentage(0);
     setRotation(0);
+    setGmonFee("");
   }, [estimatedGas]);
 
   return (
     <div className="glass-card rounded-3xl p-8 relative shadow-2xl max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">
-          🎰 Gas Fee Roulette
-        </h2>
-        <p className="text-white/70 text-lg">
-          The blockchain gods are determining your fate...
-        </p>
+        <h2 className="text-3xl font-bold text-white mb-2">🎰 GMON Gas Roulette</h2>
+        <p className="text-white/70 text-lg">Spin to determine your GMON-denominated fee from our pool.</p>
         {!hasSpun && (
-          <p className="text-pastel-yellow text-sm mt-2">
-            Spinning the wheel of gas destiny...
-          </p>
+          <p className="text-pastel-yellow text-sm mt-2">Spinning the wheel of GMON destiny...</p>
         )}
       </div>
 
@@ -233,7 +257,7 @@ export const ReviewConfirm = ({
                       Spinning...
                     </span>
                   ) : (
-                    "🎲 SPIN THE WHEEL OF DESTINY"
+                    "🎲 SPIN THE GMON ROULETTE"
                   )}
                 </button>
               </div>
@@ -260,7 +284,7 @@ export const ReviewConfirm = ({
                       <span className="text-xs font-bold text-white">B</span>
                     </div>
                     <div>
-                      <div className="text-white font-medium">BNB</div>
+                      <div className="text-white font-medium">{fromToken?.symbol || "MON"}</div>
                       <div className="text-white/70 text-sm">From</div>
                     </div>
                   </div>
@@ -283,7 +307,7 @@ export const ReviewConfirm = ({
                       <span className="text-xs font-bold text-white">₮</span>
                     </div>
                     <div>
-                      <div className="text-white font-medium">USDT</div>
+                      <div className="text-white font-medium">{toToken?.symbol || "GMON"}</div>
                       <div className="text-white/70 text-sm">To</div>
                     </div>
                   </div>
@@ -301,9 +325,7 @@ export const ReviewConfirm = ({
           <div>
             {/* Gas Fee Result */}
             <div className="glass-dark rounded-2xl p-6">
-              <h3 className="text-white font-semibold mb-4 flex items-center">
-                ⛽ The Verdict
-              </h3>
+              <h3 className="text-white font-semibold mb-4 flex items-center">⛽ Fee Verdict</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-white/70">Exchange Rate:</span>
@@ -311,7 +333,7 @@ export const ReviewConfirm = ({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-white/70">Your Destined Gas Fee:</span>
+                  <span className="text-white/70">Selected Gas Fee (fiat est.):</span>
                   <span
                     className={`font-bold text-lg ${
                       hasSpun ? "text-pastel-mint" : "text-white/50"
@@ -320,6 +342,26 @@ export const ReviewConfirm = ({
                     {hasSpun ? finalGasFee : "???"}
                   </span>
                 </div>
+
+                {hasSpun && gmonFee && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70">GMON Fee (from pool):</span>
+                    <span className="text-pastel-mint font-semibold">{gmonFee}</span>
+                  </div>
+                )}
+
+                {reserves.data && (
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-white/70">
+                    <div className="glass-dark rounded-xl p-3">
+                      <div className="opacity-80">Pool Native Reserve</div>
+                      <div className="text-white font-semibold truncate">{String((reserves.data as readonly [bigint, bigint])[0])}</div>
+                    </div>
+                    <div className="glass-dark rounded-xl p-3">
+                      <div className="opacity-80">Pool GMON Reserve</div>
+                      <div className="text-white font-semibold truncate">{String((reserves.data as readonly [bigint, bigint])[1])}</div>
+                    </div>
+                  </div>
+                )}
 
                 {hasSpun && (
                   <div className="mt-4 p-3 bg-pastel-mint/20 rounded-lg border border-pastel-mint/30">
@@ -349,7 +391,7 @@ export const ReviewConfirm = ({
                   className="flex text-white font-semibold py-4 px-6 rounded-2xl transition-all hover:scale-105"
                   style={{ backgroundColor: "#6E54FF" }}
                 >
-                  Accept Your Fate →
+                  Accept GMON Fee →
                 </button>
               </div>
             </div>
@@ -362,7 +404,7 @@ export const ReviewConfirm = ({
           <div className="glass-dark rounded-full px-6 py-2">
             <p className="text-pastel-yellow text-sm flex items-center">
               <span className="animate-spin mr-2">🎪</span>
-              The wheel of destiny is spinning...
+              The GMON roulette is spinning...
               <span className="ml-2">✨</span>
             </p>
           </div>
@@ -374,7 +416,7 @@ export const ReviewConfirm = ({
           <div className="glass-dark rounded-full px-6 py-2 border border-green-500/30">
             <p className="text-pastel-mint text-sm flex items-center">
               <span className="mr-2">🎯</span>
-              Fate has decided your gas fee!
+              Your GMON fee has been selected!
               <span className="ml-2 animate-spin">💫</span>
             </p>
           </div>

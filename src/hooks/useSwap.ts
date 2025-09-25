@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useAccount, useBalance, useChainId, useSwitchChain } from "wagmi";
 import { SwapStep, Token, SwapState, SwapQuote } from "@/types/swap";
 import {
@@ -111,8 +111,8 @@ export const useSwap = () => {
     },
   ];
 
-  // Debounce price fetching
-  const [priceTimeout, setPriceTimeout] = useState<NodeJS.Timeout | null>(null);
+  // Debounce price fetching (useRef to avoid render loops)
+  const priceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const fetchPrice = useCallback(async () => {
     if (!swapState.fromToken || !swapState.toToken || !swapState.fromAmount) {
@@ -275,20 +275,21 @@ export const useSwap = () => {
 
   // Debounced price fetching
   useEffect(() => {
-    if (priceTimeout) {
-      clearTimeout(priceTimeout);
+    if (priceTimeoutRef.current) {
+      clearTimeout(priceTimeoutRef.current);
     }
 
     if (swapState.fromAmount && swapState.fromToken && swapState.toToken) {
       const timeout = setTimeout(() => {
         fetchPrice();
       }, 500); // 500ms debounce
-      setPriceTimeout(timeout);
+      priceTimeoutRef.current = timeout;
     }
 
     return () => {
-      if (priceTimeout) {
-        clearTimeout(priceTimeout);
+      if (priceTimeoutRef.current) {
+        clearTimeout(priceTimeoutRef.current);
+        priceTimeoutRef.current = null;
       }
     };
   }, [
@@ -296,7 +297,6 @@ export const useSwap = () => {
     swapState.fromToken,
     swapState.toToken,
     fetchPrice,
-    priceTimeout,
   ]);
 
   const setFromToken = useCallback((token: Token) => {

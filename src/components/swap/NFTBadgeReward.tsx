@@ -110,37 +110,37 @@ export const NFTBadgeReward = ({
   const renderBadgeDesign = () => (
     <div className="relative w-80 h-80 mx-auto">
       {/* Badge Background */}
-      <div className="w-full h-full rounded-full bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-600 shadow-2xl border-8 border-yellow-200 relative overflow-hidden">
+      <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-500 via-indigo-600 to-blue-600 shadow-2xl border-8 border-white/20 relative overflow-hidden">
         {/* Inner Ring */}
-        <div className="absolute inset-4 rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-600 border-4 border-white shadow-inner">
+        <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-4 border-white/10 shadow-inner">
           {/* Center Content */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
             <div className="text-6xl mb-2">🏆</div>
             <div className="text-white font-bold text-lg mb-1">
               SWAP SURVIVOR
             </div>
-            <div className="text-yellow-200 text-sm">
+            <div className="text-pastel-yellow text-sm">
               {new Date().getFullYear()}
             </div>
 
             {/* Decorative Stars */}
-            <div className="absolute top-6 left-6 text-yellow-200 text-xl animate-spin-slow">
+            <div className="absolute top-6 left-6 text-pastel-yellow text-xl animate-spin-slow">
               ⭐
             </div>
             <div
-              className="absolute top-6 right-6 text-yellow-200 text-xl animate-spin-slow"
+              className="absolute top-6 right-6 text-pastel-yellow text-xl animate-spin-slow"
               style={{ animationDelay: "1s" }}
             >
               ⭐
             </div>
             <div
-              className="absolute bottom-6 left-6 text-yellow-200 text-xl animate-spin-slow"
+              className="absolute bottom-6 left-6 text-pastel-yellow text-xl animate-spin-slow"
               style={{ animationDelay: "2s" }}
             >
               ⭐
             </div>
             <div
-              className="absolute bottom-6 right-6 text-yellow-200 text-xl animate-spin-slow"
+              className="absolute bottom-6 right-6 text-pastel-yellow text-xl animate-spin-slow"
               style={{ animationDelay: "3s" }}
             >
               ⭐
@@ -149,13 +149,13 @@ export const NFTBadgeReward = ({
         </div>
 
         {/* Achievement Ribbon */}
-        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-1 text-xs font-bold rounded-full border-2 border-red-300">
+        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-[#6E54FF] text-white px-4 py-1 text-xs font-bold rounded-full border-2 border-white/20">
           LEGENDARY
         </div>
       </div>
 
       {/* Glowing Effect */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 opacity-30"></div>
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#6E54FF]/40 to-blue-500/40 opacity-30 blur-sm"></div>
     </div>
   );
 
@@ -199,8 +199,8 @@ export const NFTBadgeReward = ({
           <div className="glass-dark rounded-2xl p-6">
             <div className="text-center mb-4">
               <div className="inline-flex items-center space-x-2 px-4 py-2 glass-steps rounded-full">
-                <div className="w-3 h-3 rounded-full bg-pastel-blue"></div>
-                <span className="text-pastel-blue font-semibold">
+                <div className="w-3 h-3 rounded-full bg-[#6E54FF]"></div>
+                <span className="text-white font-semibold">
                   {mintingStage === "preparation"
                     ? "Preparing NFT..."
                     : "Minting in Progress..."}
@@ -211,7 +211,7 @@ export const NFTBadgeReward = ({
             {/* Progress Animation */}
             <div className="w-full bg-white/10 rounded-full h-4 mb-4">
               <div
-                className="h-4 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r from-purple-400 to-blue-500"
+                className="h-4 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r from-[#6E54FF] to-blue-400"
                 style={{
                   width:
                     mintingStage === "preparation"
@@ -343,21 +343,21 @@ export const NFTBadgeReward = ({
               Survivors&rdquo; club!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-gradient-to-br from-gold/20 to-yellow-600/20 rounded-lg border border-yellow-500/30">
+              <div className="p-4 bg-gradient-to-br from-[#6E54FF]/20 to-blue-500/10 rounded-lg border border-[#6E54FF]/30">
                 <div className="text-3xl mb-2">🥇</div>
-                <div className="text-pastel-yellow font-bold">Gold Tier</div>
+                <div className="text-white font-bold">Gold Tier</div>
                 <div className="text-white/70 text-xs">Legendary Survivor</div>
               </div>
               <div className="p-4 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-lg border border-purple-500/30">
                 <div className="text-3xl mb-2">🎭</div>
-                <div className="text-purple-400 font-bold">Comedy Master</div>
+                <div className="text-purple-300 font-bold">Comedy Master</div>
                 <div className="text-white/70 text-xs">
                   Survived All Theatrics
                 </div>
               </div>
-              <div className="p-4 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
+              <div className="p-4 bg-gradient-to-br from-emerald-500/20 to-green-600/10 rounded-lg border border-emerald-500/30">
                 <div className="text-3xl mb-2">🚀</div>
-                <div className="text-green-400 font-bold">DeFi Explorer</div>
+                <div className="text-emerald-300 font-bold">DeFi Explorer</div>
                 <div className="text-white/70 text-xs">
                   Completed The Journey
                 </div>
