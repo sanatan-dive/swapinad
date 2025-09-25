@@ -95,14 +95,16 @@ export const TokenSelection = ({
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center space-x-2">
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center ${fromToken?.backgroundColor || 'bg-gray-500'}`}
+                className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                  fromToken?.backgroundColor || "bg-gray-500"
+                }`}
               >
                 <span className="text-xs font-bold text-white">
-                  {fromToken?.icon || fromToken?.symbol?.[0] || '?'}
+                  {fromToken?.icon || fromToken?.symbol?.[0] || "?"}
                 </span>
               </div>
               <span className="text-white font-medium">
-                {fromToken?.symbol || 'Select Token'}
+                {fromToken?.symbol || "Select Token"}
               </span>
               <svg
                 className="w-4 h-4 text-white"
@@ -138,41 +140,48 @@ export const TokenSelection = ({
               </svg>
             </div>
           </div>
-          
-        <div className="bg-black/20 rounded-2xl p-4 ">
-              <div className="flex justify-between items-start mb-6 ">
-            <span className="text-white/70 text-sm">You send:</span>
-            <div className="text-right">
-              <span className="text-white/70 text-sm">
-                {isConnected && fromTokenBalance 
-                  ? `Available: ${parseFloat(fromTokenBalance.formatted).toFixed(4)} ${fromTokenBalance.symbol}`
-                  : 'Available: --'
-                }
-              </span>
-              {isConnected && fromTokenBalance && (
-                <button
-                  onClick={() => onFromAmountChange(fromTokenBalance.formatted)}
-                  className="text-white px-3 py-1 text-xs font-bold rounded inline-block ml-2 hover:opacity-80 transition-opacity"
-                  style={{ backgroundColor: "#6E54FF" }}
-                >
-                  MAX
-                </button>
-              )}
+
+          <div className="bg-black/20 rounded-2xl p-4 ">
+            <div className="flex justify-between items-start mb-6 ">
+              <span className="text-white/70 text-sm">You send:</span>
+              <div className="text-right">
+                <span className="text-white/70 text-sm">
+                  {isConnected && fromTokenBalance
+                    ? `Available: ${parseFloat(
+                        fromTokenBalance.formatted
+                      ).toFixed(4)} ${fromTokenBalance.symbol}`
+                    : "Available: --"}
+                </span>
+                {isConnected && fromTokenBalance && (
+                  <button
+                    onClick={() =>
+                      onFromAmountChange(fromTokenBalance.formatted)
+                    }
+                    className="text-white px-3 py-1 text-xs font-bold rounded inline-block ml-2 hover:opacity-80 transition-opacity"
+                    style={{ backgroundColor: "#6E54FF" }}
+                  >
+                    MAX
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="flex justify-between items-end">
+              <input
+                type="text"
+                value={fromAmount}
+                onChange={(e) => onFromAmountChange(e.target.value)}
+                className="text-white text-4xl font-light bg-transparent border-none outline-none w-full"
+                placeholder="0.00"
+              />
+              <div className="text-white/50 text-sm">
+                {fromAmount && fromToken
+                  ? `≈$${(
+                      parseFloat(fromAmount.replace(/,/g, "")) * 1000
+                    ).toLocaleString()}`
+                  : "≈$0"}
+              </div>
             </div>
           </div>
-          <div className="flex justify-between items-end">
-            <input
-              type="text"
-              value={fromAmount}
-              onChange={(e) => onFromAmountChange(e.target.value)}
-              className="text-white text-4xl font-light bg-transparent border-none outline-none w-full"
-              placeholder="0.00"
-            />
-            <div className="text-white/50 text-sm">
-              {fromAmount && fromToken ? `≈$${(parseFloat(fromAmount.replace(/,/g, '')) * 1000).toLocaleString()}` : '≈$0'}
-            </div>
-          </div>
-        </div>
         </div>
 
         {/* Swap Button Container */}
@@ -209,13 +218,17 @@ export const TokenSelection = ({
           </div>
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center space-x-2">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${toToken?.backgroundColor || 'bg-gray-500'}`}>
+              <div
+                className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                  toToken?.backgroundColor || "bg-gray-500"
+                }`}
+              >
                 <span className="text-xs font-bold text-white">
-                  {toToken?.icon || toToken?.symbol?.[0] || '?'}
+                  {toToken?.icon || toToken?.symbol?.[0] || "?"}
                 </span>
               </div>
               <span className="text-white font-medium">
-                {toToken?.symbol || 'Select Token'}
+                {toToken?.symbol || "Select Token"}
               </span>
               <svg
                 className="w-4 h-4 text-white"
@@ -252,34 +265,39 @@ export const TokenSelection = ({
             </div>
           </div>
           <div className="bg-black/20 rounded-2xl p-4 ">
-          <div className="flex justify-between items-start mb-6">
-            <span className="text-white/70 text-sm">You receive:</span>
-            <div className="text-right">
-              <span className="text-white/70 text-sm">
-                {isConnected && toTokenBalance 
-                  ? `Balance: ${parseFloat(toTokenBalance.formatted).toFixed(4)} ${toTokenBalance.symbol}`
-                  : 'Balance: --'
-                }
-              </span>
+            <div className="flex justify-between items-start mb-6">
+              <span className="text-white/70 text-sm">You receive:</span>
+              <div className="text-right">
+                <span className="text-white/70 text-sm">
+                  {isConnected && toTokenBalance
+                    ? `Balance: ${parseFloat(toTokenBalance.formatted).toFixed(
+                        4
+                      )} ${toTokenBalance.symbol}`
+                    : "Balance: --"}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between items-end">
-            <div className="text-white text-4xl font-light">
-              {isLoadingPrice ? (
-                <div className="flex items-center space-x-2">
-                  <div className="animate-spin w-6 h-6 border-2 border-white border-t-transparent rounded-full"></div>
-                  <span className="text-lg">Loading...</span>
-                </div>
-              ) : priceError ? (
-                <span className="text-red-400 text-lg">Error</span>
-              ) : (
-                toAmount || "0.00"
-              )}
+            <div className="flex justify-between items-end">
+              <div className="text-white text-4xl font-light">
+                {isLoadingPrice ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="animate-spin w-6 h-6 border-2 border-white border-t-transparent rounded-full"></div>
+                    <span className="text-lg">Loading...</span>
+                  </div>
+                ) : priceError ? (
+                  <span className="text-red-400 text-lg">Error</span>
+                ) : (
+                  toAmount || "0.00"
+                )}
+              </div>
+              <div className="text-white/50 text-sm">
+                {toAmount && toToken
+                  ? `≈$${(
+                      parseFloat(toAmount.replace(/,/g, "")) * 1000
+                    ).toLocaleString()}`
+                  : "≈$0"}
+              </div>
             </div>
-            <div className="text-white/50 text-sm">
-              {toAmount && toToken ? `≈$${(parseFloat(toAmount.replace(/,/g, '')) * 1000).toLocaleString()}` : '≈$0'}
-            </div>
-          </div>
           </div>
         </div>
       </div>
@@ -287,11 +305,12 @@ export const TokenSelection = ({
       {/* Exchange Rate */}
       <div className="flex justify-between items-center mt-4 text-sm">
         <span className="text-white/70">
-          {exchangeRate || (fromToken && toToken ? `1 ${fromToken.symbol} = -- ${toToken.symbol}` : 'Select tokens to see rate')}
+          {exchangeRate ||
+            (fromToken && toToken
+              ? `1 ${fromToken.symbol} = -- ${toToken.symbol}`
+              : "Select tokens to see rate")}
         </span>
-        {exchangeRate && (
-          <span className="text-blue-400">Live Rate</span>
-        )}
+        {exchangeRate && <span className="text-pastel-blue">Live Rate</span>}
       </div>
       <div className="text-white/50 text-xs mt-1">
         {priceError ? (
@@ -304,11 +323,17 @@ export const TokenSelection = ({
       {/* Continue Button */}
       <button
         onClick={onNextStep}
-        disabled={!fromToken || !toToken || !fromAmount || isLoadingPrice || !!priceError}
+        disabled={
+          !fromToken ||
+          !toToken ||
+          !fromAmount ||
+          isLoadingPrice ||
+          !!priceError
+        }
         className="w-full text-white font-semibold py-4 px-6 rounded-2xl mt-6 transition-colors hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
         style={{ backgroundColor: "#6E54FF" }}
       >
-        {isLoadingPrice ? 'Getting Price...' : 'Review Swap ››'}
+        {isLoadingPrice ? "Getting Price..." : "Review Swap ››"}
       </button>
     </div>
   );

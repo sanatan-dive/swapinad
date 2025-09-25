@@ -12,6 +12,7 @@ export default function Home() {
     fromToken,
     toToken,
     exchangeRate,
+    estimatedGas,
     isLoadingPrice,
     priceError,
     isConnected,
@@ -27,12 +28,13 @@ export default function Home() {
     handleStepClick,
     handleNextStep,
     handleSwap,
+    executeSwap,
   } = useSwap();
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1 flex flex-col items-center justify-center p-4">
         {/* Progress Steps */}
         <div className="mb-8">
@@ -51,6 +53,7 @@ export default function Home() {
           fromToken={fromToken}
           toToken={toToken}
           exchangeRate={exchangeRate}
+          estimatedGas={estimatedGas}
           isLoadingPrice={isLoadingPrice}
           priceError={priceError}
           isConnected={isConnected}
@@ -64,6 +67,7 @@ export default function Home() {
           onSwap={handleSwap}
           onNextStep={handleNextStep}
           onBackToStep={setCurrentStep}
+          onExecuteSwap={executeSwap}
         />
       </main>
     </div>

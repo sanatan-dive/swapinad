@@ -38,15 +38,14 @@ export const ProgressSteps = ({
                   } ${isCompleted ? "cursor-pointer hover:bg-white/5" : ""}`}
                   style={{
                     borderColor: isActive ? "#6E54FF" : undefined,
-                  
                   }}
                 >
                   <div
-                    className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium transition-all duration-300 ${
+                    className={`flex items-center justify-center w-8 h-8 rounded-full text-xs font-medium transition-all duration-300 ${
                       isActive
-                        ? "text-white animate-pulse"
+                        ? "text-white"
                         : isCompleted
-                        ? "bg-green-500 text-white"
+                        ? "bg-pastel-mint text-white"
                         : "bg-white/10 text-white/30"
                     }`}
                     style={{
@@ -58,7 +57,7 @@ export const ProgressSteps = ({
 
                   {/* Only show title for active step */}
                   {isActive && (
-                    <span className="text-white text-sm font-bold ml-2 animate-fadeIn">
+                    <span className="text-white text-xs font-bold ml-2 animate-fadeIn">
                       {step.title}
                     </span>
                   )}
@@ -70,7 +69,7 @@ export const ProgressSteps = ({
                 <div className="mx-2">
                   <div
                     className={`h-0.5 w-8 transition-all duration-500 ${
-                      step.id < currentStep ? "bg-green-500" : "bg-white/20"
+                      step.id < currentStep ? "bg-pastel-mint" : "bg-white/20"
                     }`}
                   />
                 </div>

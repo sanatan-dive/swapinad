@@ -12,7 +12,7 @@ export const Complete = ({
   return (
     <div className="glass-card rounded-3xl p-6 relative shadow-2xl text-center">
       <div className="mb-8">
-        <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-pastel-mint rounded-full flex items-center justify-center mx-auto mb-6">
           <svg
             className="w-8 h-8 text-white"
             fill="none"
