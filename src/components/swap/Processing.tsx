@@ -40,23 +40,23 @@ const validatorPool: Validator[] = [
     bio: "Much validator, very approve, wow!",
     approvalRate: 97.8,
     status: "pending",
-    comment: "Such legitimate transaction, much approve! 🚀",
+    comment: "Such legitimate transaction, much approve!",
     voteTime: 1500,
   },
   {
     id: "3",
     name: "ElonMuskFan420",
-    avatar: "🚀",
+    avatar: "R",
     bio: "To the moon! Professional rocket validator",
     approvalRate: 94.5,
     status: "pending",
-    comment: "This transaction is going to Mars! ✅",
+    comment: "This transaction is going to Mars!",
     voteTime: 2500,
   },
   {
     id: "4",
     name: "PizzaValidatorPro",
-    avatar: "🍕",
+    avatar: "P",
     bio: "Validating transactions since 2017, powered by pizza",
     approvalRate: 98.1,
     status: "pending",
@@ -70,7 +70,7 @@ const validatorPool: Validator[] = [
     bio: "PhD in Crypto, expert in legitimate transactions",
     approvalRate: 99.7,
     status: "pending",
-    comment: "After careful analysis: APPROVED ✅",
+    comment: "After careful analysis: APPROVED",
     voteTime: 3000,
   },
   {
@@ -80,7 +80,7 @@ const validatorPool: Validator[] = [
     bio: "Fueled by caffeine, powered by blockchain",
     approvalRate: 96.3,
     status: "pending",
-    comment: "Approved faster than my morning brew! ⚡",
+    comment: "Approved faster than my morning brew!",
     voteTime: 1200,
   },
 ];
@@ -146,9 +146,35 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
   }, [validators, votingComplete, votingStarted, onComplete]);
 
   const getStepIcon = (step: number, currentStep: number) => {
-    if (step < currentStep) return "✅";
-    if (step === currentStep) return "🔄";
-    return "⏳";
+    if (step < currentStep)
+      return (
+        <svg
+          className="w-4 h-4 text-white"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clipRule="evenodd"
+          />
+        </svg>
+      );
+    if (step === currentStep)
+      return (
+        <svg
+          className="w-4 h-4 text-white animate-spin"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fillRule="evenodd"
+            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+            clipRule="evenodd"
+          />
+        </svg>
+      );
+    return step;
   };
 
   const getStepStatus = (step: number, currentStep: number) => {
@@ -166,7 +192,17 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
             className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center"
             style={{ backgroundColor: "#6E54FF" }}
           >
-            <span className="text-3xl">🎯</span>
+            <svg
+              className="w-8 h-8 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
           <h2 className="text-3xl font-bold text-white mb-2">
             Transaction Processing
@@ -240,7 +276,19 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
         <div className="flex-1">
           <div className="glass-dark rounded-2xl p-6 mb-6">
             <h3 className="text-white font-semibold mb-4 flex items-center">
-              📋 Validation Progress
+              <svg
+                className="w-5 h-5 mr-2 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                <path
+                  fillRule="evenodd"
+                  d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3a2 2 0 012 0v1a1 1 0 102 0V3a2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 13H13v3a2 2 0 01-2 2H6a2 2 0 01-2-2V5zM6 5v6h2l-.293.293a1 1 0 000 1.414L9 14H6V5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Validation Progress
             </h3>
             <div className="space-y-3">
               {[
@@ -329,7 +377,17 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
                       {validator.status === "reviewing" &&
                         index === currentVoter && (
                           <div className="absolute -top-1 -right-1 w-6 h-6 bg-pastel-yellow rounded-full flex items-center justify-center animate-spin">
-                            <span className="text-white text-xs">⚡</span>
+                            <svg
+                              className="w-3 h-3 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </div>
                         )}
                     </div>
@@ -341,7 +399,7 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
                         </h4>
                         <div className="flex items-center gap-2">
                           <span className="text-pastel-mint text-sm">
-                            {validator.approvalRate}% ✅
+                            {validator.approvalRate}%
                           </span>
                         </div>
                       </div>
@@ -378,7 +436,17 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
       {votingComplete && !showRealStatus && (
         <div className="text-center py-6">
           <div className="mb-4">
-            <span className="text-4xl">🎉</span>
+            <svg
+              className="w-12 h-12 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
           <h3 className="text-xl font-bold text-pastel-mint mb-2">
             Community Approved!
@@ -411,7 +479,19 @@ export const Processing = ({ progress, onComplete }: ProcessingProps) => {
             <p className="text-pastel-mint text-sm flex items-center">
               <span className="mr-2">✅</span>
               Consensus reached! Moving to blockchain...
-              <span className="ml-2 animate-spin">🚀</span>
+              <span className="ml-2 animate-spin">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
             </p>
           </div>
         </div>

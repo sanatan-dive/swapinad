@@ -12,11 +12,10 @@ import { config as wagmiConfig } from "@/lib/wagmi";
 
 export default function Home() {
   const {
-    fromAmount,
-    setFromAmount,
-    toAmount,
     fromToken,
+    fromAmount,
     toToken,
+    toAmount,
     exchangeRate,
     estimatedGas,
     isLoadingPrice,
@@ -34,7 +33,7 @@ export default function Home() {
     handleStepClick,
     handleNextStep,
     handleSwap,
-    executeSwap,
+    setFromAmount,
   } = useSwap();
 
   // Local pool hooks (MON <-> GMON)

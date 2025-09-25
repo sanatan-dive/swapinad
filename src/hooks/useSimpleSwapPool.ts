@@ -1,4 +1,4 @@
-import { Address, Hex } from "viem";
+import { Address, Hex, Abi } from "viem";
 import { useReadContract, useWriteContract } from "wagmi";
 import POOL_ABI from "@/ABI/SimpleSwapPool.json";
 
@@ -7,7 +7,7 @@ export const SIMPLE_SWAP_POOL_ADDRESS: Address = "0xDf4682D006a1AeBC154afDE8dD13
 
 export function usePoolReserves() {
   return useReadContract({
-    abi: POOL_ABI as any,
+    abi: POOL_ABI as Abi,
     address: SIMPLE_SWAP_POOL_ADDRESS,
     functionName: "getReserves",
     args: [],
@@ -20,7 +20,7 @@ export function useSwapEthForGmon() {
 
   const swap = (minGmonOut: bigint, valueWei: bigint) =>
     writeContract({
-      abi: POOL_ABI as any,
+      abi: POOL_ABI as Abi,
       address: SIMPLE_SWAP_POOL_ADDRESS,
       functionName: "swapETHForGMON",
       args: [minGmonOut],
@@ -36,7 +36,7 @@ export function useSwapGmonForEth() {
 
   const swap = (gmonIn: bigint, minEthOut: bigint) =>
     writeContract({
-      abi: POOL_ABI as any,
+      abi: POOL_ABI as Abi,
       address: SIMPLE_SWAP_POOL_ADDRESS,
       functionName: "swapGMONForETH",
       args: [gmonIn, minEthOut],

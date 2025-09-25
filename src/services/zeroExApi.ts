@@ -4,23 +4,6 @@
  * Handles swap price fetching, quote generation, and trade execution
  */
 
-// API Configuration
-const API_BASE_URL = 'https://api.0x.org';
-const API_VERSION = 'v2';
-
-// Headers factory function
-const createHeaders = (apiKey?: string) => {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  };
-
-  if (apiKey) {
-    headers['0x-api-key'] = apiKey;
-  }
-
-  return headers;
-};
-
 // Types for API responses
 export interface SwapPriceResponse {
   price: string;
@@ -63,7 +46,7 @@ export class ZeroExApiError extends Error {
   constructor(
     message: string,
     public status?: number,
-    public response?: any
+    public response?: Record<string, unknown>
   ) {
     super(message);
     this.name = 'ZeroExApiError';
@@ -96,8 +79,7 @@ async function handleApiResponse<T>(response: Response): Promise<T> {
  * Uses our Next.js API proxy to avoid CORS issues
  */
 export async function fetchSwapPrice(
-  params: SwapParams,
-  apiKey?: string
+  params: SwapParams
 ): Promise<SwapPriceResponse> {
   const { chainId, buyToken, sellToken, sellAmount, taker } = params;
   
@@ -136,8 +118,7 @@ export async function fetchSwapPrice(
  * Uses our Next.js API proxy to avoid CORS issues
  */
 export async function fetchSwapQuote(
-  params: SwapParams,
-  apiKey?: string
+  params: SwapParams
 ): Promise<SwapQuoteResponse> {
   const { chainId, buyToken, sellToken, sellAmount, taker } = params;
   

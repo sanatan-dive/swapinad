@@ -1,4 +1,4 @@
-import { Address, Hex } from "viem";
+import { Address, Hex, Abi } from "viem";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import GMON_ABI from "@/ABI/GMON.json";
 
@@ -10,7 +10,7 @@ export function useGmonBalance(owner?: Address) {
   const { address } = useAccount();
   const target = owner ?? (address as Address | undefined);
   return useReadContract({
-    abi: GMON_ABI as any,
+    abi: GMON_ABI as Abi,
     address: GMON_ADDRESS,
     functionName: "balanceOf",
     args: target ? [target] : undefined,
@@ -23,7 +23,7 @@ export function useGmonAllowance(owner?: Address, spender?: Address) {
   const { address } = useAccount();
   const target = owner ?? (address as Address | undefined);
   return useReadContract({
-    abi: GMON_ABI as any,
+    abi: GMON_ABI as Abi,
     address: GMON_ADDRESS,
     functionName: "allowance",
     args: target && spender ? [target, spender] : undefined,
@@ -37,7 +37,7 @@ export function useApproveGmon() {
 
   const approve = (spender: Address, amount: bigint) =>
     writeContract({
-      abi: GMON_ABI as any,
+      abi: GMON_ABI as Abi,
       address: GMON_ADDRESS,
       functionName: "approve",
       args: [spender, amount],

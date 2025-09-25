@@ -144,16 +144,13 @@ export const useSwap = () => {
         swapState.fromToken.decimals
       );
 
-      const priceResponse = await fetchSwapPrice(
-        {
-          chainId: chainId,
-          buyToken: swapState.toToken.address,
-          sellToken: swapState.fromToken.address,
-          sellAmount,
-          taker: address,
-        },
-        config.zeroExApiKey
-      );
+      const priceResponse = await fetchSwapPrice({
+        chainId: chainId,
+        buyToken: swapState.toToken.address,
+        sellToken: swapState.fromToken.address,
+        sellAmount,
+        taker: address,
+      });
 
       // Calculate display amounts
       const buyAmountFormatted = (
@@ -234,16 +231,13 @@ export const useSwap = () => {
         swapState.fromToken.decimals
       );
 
-      const quote = await fetchSwapQuote(
-        {
-          chainId: chainId,
-          buyToken: swapState.toToken.address,
-          sellToken: swapState.fromToken.address,
-          sellAmount,
-          taker: address,
-        },
-        config.zeroExApiKey
-      );
+      const quote = await fetchSwapQuote({
+        chainId: chainId,
+        buyToken: swapState.toToken.address,
+        sellToken: swapState.fromToken.address,
+        sellAmount,
+        taker: address,
+      });
 
       setSwapState((prev) => ({
         ...prev,

@@ -147,10 +147,16 @@ export const ReviewConfirm = ({
   return (
     <div className="glass-card rounded-3xl p-8 relative shadow-2xl max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">🎰 GMON Gas Roulette</h2>
-        <p className="text-white/70 text-lg">Spin to determine your GMON-denominated fee from our pool.</p>
+        <h2 className="text-3xl font-bold text-white mb-2">
+          GMON Gas Roulette
+        </h2>
+        <p className="text-white/70 text-lg">
+          Spin to determine your GMON-denominated fee from our pool.
+        </p>
         {!hasSpun && (
-          <p className="text-pastel-yellow text-sm mt-2">Spinning the wheel of GMON destiny...</p>
+          <p className="text-pastel-yellow text-sm mt-2">
+            Spinning the wheel of GMON destiny...
+          </p>
         )}
       </div>
 
@@ -234,7 +240,17 @@ export const ReviewConfirm = ({
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg z-10"
                 style={{ backgroundColor: "#6E54FF" }}
               >
-                🎰
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </div>
             </div>
 
@@ -257,7 +273,7 @@ export const ReviewConfirm = ({
                       Spinning...
                     </span>
                   ) : (
-                    "🎲 SPIN THE GMON ROULETTE"
+                    "SPIN THE GMON ROULETTE"
                   )}
                 </button>
               </div>
@@ -272,7 +288,14 @@ export const ReviewConfirm = ({
             {/* Swap Summary */}
             <div className="glass-dark rounded-2xl p-6">
               <h3 className="text-white font-semibold mb-4 flex items-center">
-                📊 Swap Summary
+                <svg
+                  className="w-5 h-5 mr-2 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                </svg>
+                Swap Summary
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -284,7 +307,9 @@ export const ReviewConfirm = ({
                       <span className="text-xs font-bold text-white">B</span>
                     </div>
                     <div>
-                      <div className="text-white font-medium">{fromToken?.symbol || "MON"}</div>
+                      <div className="text-white font-medium">
+                        {fromToken?.symbol || "MON"}
+                      </div>
                       <div className="text-white/70 text-sm">From</div>
                     </div>
                   </div>
@@ -307,7 +332,9 @@ export const ReviewConfirm = ({
                       <span className="text-xs font-bold text-white">₮</span>
                     </div>
                     <div>
-                      <div className="text-white font-medium">{toToken?.symbol || "GMON"}</div>
+                      <div className="text-white font-medium">
+                        {toToken?.symbol || "GMON"}
+                      </div>
                       <div className="text-white/70 text-sm">To</div>
                     </div>
                   </div>
@@ -325,7 +352,20 @@ export const ReviewConfirm = ({
           <div>
             {/* Gas Fee Result */}
             <div className="glass-dark rounded-2xl p-6">
-              <h3 className="text-white font-semibold mb-4 flex items-center">⛽ Fee Verdict</h3>
+              <h3 className="text-white font-semibold mb-4 flex items-center">
+                <svg
+                  className="w-5 h-5 mr-2 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3 10a1 1 0 011-1h12a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM5 12a1 1 0 011-1h8a1 1 0 010 2H6a1 1 0 01-1-1zm0 3a1 1 0 011-1h4a1 1 0 010 2H6a1 1 0 01-1-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Fee Verdict
+              </h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-white/70">Exchange Rate:</span>
@@ -333,7 +373,9 @@ export const ReviewConfirm = ({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-white/70">Selected Gas Fee (fiat est.):</span>
+                  <span className="text-white/70">
+                    Selected Gas Fee (fiat est.):
+                  </span>
                   <span
                     className={`font-bold text-lg ${
                       hasSpun ? "text-pastel-mint" : "text-white/50"
@@ -346,27 +388,50 @@ export const ReviewConfirm = ({
                 {hasSpun && gmonFee && (
                   <div className="flex justify-between items-center">
                     <span className="text-white/70">GMON Fee (from pool):</span>
-                    <span className="text-pastel-mint font-semibold">{gmonFee}</span>
+                    <span className="text-pastel-mint font-semibold">
+                      {gmonFee}
+                    </span>
                   </div>
                 )}
 
-                {reserves.data && (
-                  <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-white/70">
-                    <div className="glass-dark rounded-xl p-3">
-                      <div className="opacity-80">Pool Native Reserve</div>
-                      <div className="text-white font-semibold truncate">{String((reserves.data as readonly [bigint, bigint])[0])}</div>
+                {(() => {
+                  const reservesData = reserves.data;
+                  if (!reservesData || !Array.isArray(reservesData) || reservesData.length < 2) {
+                    return null;
+                  }
+                  const [nativeReserve, gmonReserve] = reservesData as unknown as readonly [bigint, bigint];
+                  return (
+                    <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-white/70">
+                      <div className="glass-dark rounded-xl p-3">
+                        <div className="opacity-80">Pool Native Reserve</div>
+                        <div className="text-white font-semibold truncate">
+                          {String(nativeReserve)}
+                        </div>
+                      </div>
+                      <div className="glass-dark rounded-xl p-3">
+                        <div className="opacity-80">Pool GMON Reserve</div>
+                        <div className="text-white font-semibold truncate">
+                          {String(gmonReserve)}
+                        </div>
+                      </div>
                     </div>
-                    <div className="glass-dark rounded-xl p-3">
-                      <div className="opacity-80">Pool GMON Reserve</div>
-                      <div className="text-white font-semibold truncate">{String((reserves.data as readonly [bigint, bigint])[1])}</div>
-                    </div>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {hasSpun && (
                   <div className="mt-4 p-3 bg-pastel-mint/20 rounded-lg border border-pastel-mint/30">
                     <p className="text-pastel-mint text-sm">
-                      <span className="mr-2">🎉</span>
+                      <svg
+                        className="w-4 h-4 mr-2 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       The blockchain smiled upon you! Only {luckyPercentage}% of
                       users get fees this good!
                     </p>
@@ -403,9 +468,31 @@ export const ReviewConfirm = ({
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
           <div className="glass-dark rounded-full px-6 py-2">
             <p className="text-pastel-yellow text-sm flex items-center">
-              <span className="animate-spin mr-2">🎪</span>
-              The GMON roulette is spinning...
-              <span className="ml-2">✨</span>
+              <svg
+                className="w-4 h-4 mr-2 animate-spin text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              The wheel of destiny is spinning...
+              <span className="ml-2">
+                <svg
+                  className="w-4 h-4 inline text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
             </p>
           </div>
         </div>
@@ -415,9 +502,31 @@ export const ReviewConfirm = ({
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
           <div className="glass-dark rounded-full px-6 py-2 border border-green-500/30">
             <p className="text-pastel-mint text-sm flex items-center">
-              <span className="mr-2">🎯</span>
-              Your GMON fee has been selected!
-              <span className="ml-2 animate-spin">💫</span>
+              <svg
+                className="w-4 h-4 mr-2 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Fate has decided your gas fee!
+              <span className="ml-2 animate-spin">
+                <svg
+                  className="w-4 h-4 inline text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
             </p>
           </div>
         </div>

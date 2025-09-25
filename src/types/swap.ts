@@ -130,7 +130,7 @@ export interface TokenList {
 export interface SwapError {
   code: string;
   message: string;
-  details?: any;
+  details?: Record<string, unknown>;
 }
 
 // Transaction Types
