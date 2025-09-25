@@ -1,5 +1,6 @@
 "use client";
 
+// Fixed TypeScript compilation issues for Vercel deployment
 import { useSwap } from "@/hooks/useSwap";
 import { ProgressSteps, SwapInterface } from "@/components/swap";
 import { Header } from "@/components/layout/Header";
