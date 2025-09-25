@@ -4,7 +4,11 @@ import { useSwap } from "@/hooks/useSwap";
 import { ProgressSteps, SwapInterface } from "@/components/swap";
 import { Header } from "@/components/layout/Header";
 import { useApproveGmon, useGmonAllowance } from "@/hooks/useGMON";
-import { SIMPLE_SWAP_POOL_ADDRESS, useSwapEthForGmon, useSwapGmonForEth } from "@/hooks/useSimpleSwapPool";
+import {
+  SIMPLE_SWAP_POOL_ADDRESS,
+  useSwapEthForGmon,
+  useSwapGmonForEth,
+} from "@/hooks/useSimpleSwapPool";
 import { Hex, parseEther } from "viem";
 import { useChainId, useSwitchChain } from "wagmi";
 import { waitForTransactionReceipt } from "@wagmi/core";
@@ -59,12 +63,16 @@ export default function Home() {
       const isGmonFrom = (fromToken.symbol || "").toUpperCase() === "GMON";
 
       if (isNativeFrom) {
-        const txHash = (await swapEthForGmon(BigInt(0), amountWei)) as unknown as Hex | undefined;
+        const txHash = (await swapEthForGmon(
+          BigInt(0),
+          amountWei
+        )) as unknown as Hex | undefined;
         if (txHash) {
           await waitForTransactionReceipt(wagmiConfig, { hash: txHash });
         }
       } else if (isGmonFrom) {
-        const current = (allowanceQuery.data as bigint | undefined) || BigInt(0);
+        const current =
+          (allowanceQuery.data as bigint | undefined) || BigInt(0);
         if (current < amountWei) {
           const approveHash = (await approveGmon(
             SIMPLE_SWAP_POOL_ADDRESS,
@@ -74,7 +82,10 @@ export default function Home() {
             await waitForTransactionReceipt(wagmiConfig, { hash: approveHash });
           }
         }
-        const swapHash = (await swapGmonForEth(amountWei, BigInt(0))) as unknown as Hex | undefined;
+        const swapHash = (await swapGmonForEth(
+          amountWei,
+          BigInt(0)
+        )) as unknown as Hex | undefined;
         if (swapHash) {
           await waitForTransactionReceipt(wagmiConfig, { hash: swapHash });
         }

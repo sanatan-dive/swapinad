@@ -49,7 +49,7 @@ export class ZeroExApiError extends Error {
     public response?: Record<string, unknown>
   ) {
     super(message);
-    this.name = 'ZeroExApiError';
+    this.name = "ZeroExApiError";
   }
 }
 
@@ -63,7 +63,7 @@ async function handleApiResponse<T>(response: Response): Promise<T> {
     } catch {
       errorData = { message: errorText };
     }
-    
+
     throw new ZeroExApiError(
       errorData.message || `API Error: ${response.statusText}`,
       response.status,
@@ -82,7 +82,7 @@ export async function fetchSwapPrice(
   params: SwapParams
 ): Promise<SwapPriceResponse> {
   const { chainId, buyToken, sellToken, sellAmount, taker } = params;
-  
+
   const searchParams = new URLSearchParams({
     chainId: chainId.toString(),
     buyToken,
@@ -91,16 +91,16 @@ export async function fetchSwapPrice(
   });
 
   if (taker) {
-    searchParams.append('taker', taker);
+    searchParams.append("taker", taker);
   }
 
   const url = `/api/swap/price?${searchParams.toString()}`;
-  
+
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -109,7 +109,11 @@ export async function fetchSwapPrice(
     if (error instanceof ZeroExApiError) {
       throw error;
     }
-    throw new ZeroExApiError(`Network error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new ZeroExApiError(
+      `Network error: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
   }
 }
 
@@ -121,7 +125,7 @@ export async function fetchSwapQuote(
   params: SwapParams
 ): Promise<SwapQuoteResponse> {
   const { chainId, buyToken, sellToken, sellAmount, taker } = params;
-  
+
   const searchParams = new URLSearchParams({
     chainId: chainId.toString(),
     buyToken,
@@ -130,16 +134,16 @@ export async function fetchSwapQuote(
   });
 
   if (taker) {
-    searchParams.append('taker', taker);
+    searchParams.append("taker", taker);
   }
 
   const url = `/api/swap/quote?${searchParams.toString()}`;
-  
+
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -148,14 +152,21 @@ export async function fetchSwapQuote(
     if (error instanceof ZeroExApiError) {
       throw error;
     }
-    throw new ZeroExApiError(`Network error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new ZeroExApiError(
+      `Network error: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
   }
 }
 
 /**
  * Utility function to format token amounts
  */
-export function formatTokenAmount(amount: string, decimals: number = 18): string {
+export function formatTokenAmount(
+  amount: string,
+  decimals: number = 18
+): string {
   const numAmount = parseFloat(amount);
   const divisor = Math.pow(10, decimals);
   return (numAmount / divisor).toString();
@@ -164,7 +175,10 @@ export function formatTokenAmount(amount: string, decimals: number = 18): string
 /**
  * Utility function to parse token amounts to base units
  */
-export function parseTokenAmount(amount: string, decimals: number = 18): string {
+export function parseTokenAmount(
+  amount: string,
+  decimals: number = 18
+): string {
   const numAmount = parseFloat(amount);
   const multiplier = Math.pow(10, decimals);
   return Math.floor(numAmount * multiplier).toString();
@@ -187,7 +201,7 @@ export function calculatePriceImpact(
  * Validate API key format (basic validation)
  */
 export function validateApiKey(apiKey: string): boolean {
-  return typeof apiKey === 'string' && apiKey.length > 0;
+  return typeof apiKey === "string" && apiKey.length > 0;
 }
 
 // Export the main API functions

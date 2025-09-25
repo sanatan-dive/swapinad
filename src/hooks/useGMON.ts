@@ -4,7 +4,8 @@ import GMON_ABI from "@/ABI/GMON.json";
 
 const MONAD_TESTNET_CHAIN_ID = 10143;
 
-export const GMON_ADDRESS: Address = "0xe4A4d64C4A5cbf6fbFfC0658C1e2a0b64e4fa17c";
+export const GMON_ADDRESS: Address =
+  "0xe4A4d64C4A5cbf6fbFfC0658C1e2a0b64e4fa17c";
 
 export function useGmonBalance(owner?: Address) {
   const { address } = useAccount();
@@ -46,5 +47,3 @@ export function useApproveGmon() {
 
   return { approve, hash: hash as Hex | undefined, isPending, error };
 }
-
-

@@ -136,7 +136,7 @@ export interface SwapError {
 // Transaction Types
 export interface SwapTransaction {
   hash: string;
-  status: 'pending' | 'confirmed' | 'failed';
+  status: "pending" | "confirmed" | "failed";
   confirmations: number;
   gasUsed?: number;
   effectiveGasPrice?: string;

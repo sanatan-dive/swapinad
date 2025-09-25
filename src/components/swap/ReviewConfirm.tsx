@@ -396,10 +396,15 @@ export const ReviewConfirm = ({
 
                 {(() => {
                   const reservesData = reserves.data;
-                  if (!reservesData || !Array.isArray(reservesData) || reservesData.length < 2) {
+                  if (
+                    !reservesData ||
+                    !Array.isArray(reservesData) ||
+                    reservesData.length < 2
+                  ) {
                     return null;
                   }
-                  const [nativeReserve, gmonReserve] = reservesData as unknown as readonly [bigint, bigint];
+                  const [nativeReserve, gmonReserve] =
+                    reservesData as unknown as readonly [bigint, bigint];
                   return (
                     <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-white/70">
                       <div className="glass-dark rounded-xl p-3">

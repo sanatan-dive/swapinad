@@ -3,7 +3,8 @@ import { useReadContract, useWriteContract } from "wagmi";
 import POOL_ABI from "@/ABI/SimpleSwapPool.json";
 
 const MONAD_TESTNET_CHAIN_ID = 10143;
-export const SIMPLE_SWAP_POOL_ADDRESS: Address = "0xDf4682D006a1AeBC154afDE8dD13C912b09Fe9CB";
+export const SIMPLE_SWAP_POOL_ADDRESS: Address =
+  "0xDf4682D006a1AeBC154afDE8dD13C912b09Fe9CB";
 
 export function usePoolReserves() {
   return useReadContract({
@@ -45,5 +46,3 @@ export function useSwapGmonForEth() {
 
   return { swap, hash: hash as Hex | undefined, isPending, error };
 }
-
-

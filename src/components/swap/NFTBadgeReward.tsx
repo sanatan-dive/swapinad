@@ -33,9 +33,7 @@ const badgeAttributes: BadgeAttribute[] = [
   { trait_type: "Completion Date", value: new Date().toLocaleDateString() },
 ];
 
-export const NFTBadgeReward = ({
-  onNewSwap,
-}: NFTBadgeRewardProps) => {
+export const NFTBadgeReward = ({ onNewSwap }: NFTBadgeRewardProps) => {
   const [mintingStage, setMintingStage] = useState<
     "preparation" | "minting" | "complete"
   >("preparation");
